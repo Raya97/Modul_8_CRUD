@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id "org.flywaydb.flyway" version "10.11.1"
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+flyway {
+    url = 'jdbc:h2:~/Modul6'  // зазначте свої налаштування
+    user = 'Raisa'
+    password = ''
+    locations = ['classpath:db/migration']
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'com.h2database:h2:2.2.224'
+    implementation group: 'org.flywaydb', name: 'flyway-core', version: '10.13.0'
+    runtimeOnly 'com.h2database:h2'
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+    implementation group: 'org.springframework', name: 'spring-core', version: '6.1.7'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '3.2.5'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.11.0-M2'
+
+
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
