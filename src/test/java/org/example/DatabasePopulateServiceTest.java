@@ -9,39 +9,38 @@ import org.flywaydb.core.Flyway;
 import javax.sql.DataSource;
 import static org.mockito.Mockito.*;
 
-
 public class DatabasePopulateServiceTest {
-    // Моки для DataSource та Flyway
+    // Mocks for DataSource and Flyway
     @Mock
     private DataSource dataSource;
     @Mock
     private Flyway flyway;
 
-    // Змінна для закриття ресурсів після тестування
+    // Variable to close resources after testing
     private AutoCloseable closeable;
 
-    // Налаштування перед кожним тестом
+    // Setup method to run before each test
     @BeforeEach
     void setUp() {
-        // Ініціалізація моків з використанням Mockito
+        // Initialize mocks using Mockito
         closeable = MockitoAnnotations.openMocks(this);
-        // Налаштування Flyway для повернення мокованого екземпляра при виклику configure().dataSource(dataSource).load()
+        // Configure Flyway to return a mocked instance when configure().dataSource(dataSource).load() is called
         when(Flyway.configure().dataSource(dataSource).load()).thenReturn(flyway);
     }
 
-    // Закриття ресурсів після кожного тесту
+    // Tear down method to run after each test
     @AfterEach
     void tearDown() throws Exception {
-        closeable.close(); // Закриття ресурсів, пов'язаних з моками
+        closeable.close(); // Close resources related to mocks
     }
 
-    // Тест для перевірки правильності поповнення бази даних
+    // Test to verify correct database population
     @Test
     void testDatabasePopulation() {
-        // Виклик методу, який ініціалізує базу даних
+        // Call the method that initializes the database
         DatabasePopulateService.main(null);
 
-        // Перевірка, що метод migrate() був викликаний на екземплярі Flyway
+        // Verify that the migrate() method was called on the Flyway instance
         verify(flyway).migrate();
     }
 }

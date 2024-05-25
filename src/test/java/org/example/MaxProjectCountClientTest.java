@@ -1,14 +1,14 @@
 package org.example;
 
-import static org.junit.jupiter.api.Assertions.*; // Імпорт всіх статичних методів з Assertions для використання в тестах
-import org.junit.jupiter.api.Test; // Імпорт анотації Test для позначення тестових методів
-import java.util.Date; // Імпорт класу Date для роботи з датами
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import java.util.Date;
 
 class MaxProjectCountClientTest {
 
-    @Test // Позначення методу як тестового
+    @Test // Marking the method as a test method
     void testClientProperties() {
-        // Ініціалізація тестових даних
+        // Initializing test data
         int id = 1;
         String name = "John Doe";
         Date birthday = new Date();
@@ -21,26 +21,26 @@ class MaxProjectCountClientTest {
         Date finishDate = new Date();
         int projectId = 100;
 
-        // Створення об'єкта MaxProjectCountClient з тестовими даними
+        // Creating an instance of MaxProjectCountClient with test data
         MaxProjectCountClient client = new MaxProjectCountClient(id, name, birthday, level, salary, clientId, workerId, projectCount);
         client.setStartDate(startDate);
         client.setFinishDate(finishDate);
         client.setProjectId(projectId);
 
-        // Перевірка, що всі геттери повертають правильні значення
-        assertEquals(id, client.getId()); // Перевірка ID
-        assertEquals(name, client.getName()); // Перевірка імені
-        assertEquals(birthday, client.getBirthday()); // Перевірка дати народження
-        assertEquals(level, client.getLevel()); // Перевірка рівня
-        assertEquals(salary, client.getSalary()); // Перевірка зарплати
-        assertEquals(clientId, client.getClientId()); // Перевірка ID клієнта
-        assertEquals(workerId, client.getWorkerId()); // Перевірка ID працівника
-        assertEquals(projectCount, client.getProjectCount()); // Перевірка кількості проектів
-        assertEquals(startDate, client.getStartDate()); // Перевірка дати початку проекту
-        assertEquals(finishDate, client.getFinishDate()); // Перевірка дати завершення проекту
-        assertEquals(projectId, client.getProjectId()); // Перевірка ID проекту
+        // Verifying that all getters return the correct values
+        assertEquals(id, client.getId()); // Verifying ID
+        assertEquals(name, client.getName()); // Verifying name
+        assertEquals(birthday, client.getBirthday()); // Verifying birthday
+        assertEquals(level, client.getLevel()); // Verifying level
+        assertEquals(salary, client.getSalary()); // Verifying salary
+        assertEquals(clientId, client.getClientId()); // Verifying client ID
+        assertEquals(workerId, client.getWorkerId()); // Verifying worker ID
+        assertEquals(projectCount, client.getProjectCount()); // Verifying project count
+        assertEquals(startDate, client.getStartDate()); // Verifying start date of the project
+        assertEquals(finishDate, client.getFinishDate()); // Verifying finish date of the project
+        assertEquals(projectId, client.getProjectId()); // Verifying project ID
 
-        // Тестування методу toString
+        // Testing the toString method
         String expectedString = "MaxProjectCountClient{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
@@ -51,7 +51,6 @@ class MaxProjectCountClientTest {
                 ", workerId=" + workerId +
                 ", projectCount=" + projectCount +
                 '}';
-        assertEquals(expectedString, client.toString()); // Перевірка, що метод toString повертає очікуваний рядок
+        assertEquals(expectedString, client.toString()); // Verifying that the toString method returns the expected string
     }
 }
-

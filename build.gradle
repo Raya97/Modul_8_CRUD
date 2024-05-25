@@ -18,20 +18,37 @@ flyway {
 }
 
 dependencies {
+    // JUnit 5
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+    // H2 Database
     implementation 'com.h2database:h2:2.2.224'
-    implementation group: 'org.flywaydb', name: 'flyway-core', version: '10.13.0'
     runtimeOnly 'com.h2database:h2'
+
+    // Flyway
+    implementation group: 'org.flywaydb', name: 'flyway-core', version: '10.13.0'
+
+    // HikariCP
     implementation 'com.zaxxer:HikariCP:5.1.0'
+
+    // Spring Core
     implementation group: 'org.springframework', name: 'spring-core', version: '6.1.7'
+
+    // Spring Boot Starter Test
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '3.2.5'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.11.0-M2'
 
-
-
-
+    // Mockito
+    testImplementation 'org.mockito:mockito-core:5.12.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.12.0'
 }
+
+
+
+
+
+
 
 test {
     useJUnitPlatform()

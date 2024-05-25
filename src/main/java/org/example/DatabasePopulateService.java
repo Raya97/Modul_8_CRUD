@@ -6,25 +6,25 @@ import org.flywaydb.core.Flyway;
 import javax.sql.DataSource;
 
 public class DatabasePopulateService {
-    // Створення екземпляру логера для зберігання логів процесу
+    // Create a logger instance for logging the process
     private static final Logger logger = Logger.getLogger(DatabasePopulateService.class.getName());
 
     public static void main(String[] args) {
         try {
-            // Отримання джерела даних з синглтону Database
+            // Obtain the data source from the Database singleton
             DataSource dataSource = Database.getInstance().getDataSource();
 
-            // Конфігурація Flyway з джерелом даних та підготовка до міграції
+            // Configure Flyway with the data source and prepare for migration
             Flyway flyway = Flyway.configure().dataSource(dataSource).load();
 
-            // Запуск міграції бази даних для оновлення схеми або наповнення даними
+            // Run the database migration to update the schema or populate data
             flyway.migrate();
 
-            // Виведення повідомлення про успішне заповнення таблиць даними
-            System.out.println("Таблиці бази даних успішно заповнено даними.");
+            // Print a message indicating successful data population in the tables
+            System.out.println("Database tables successfully populated with data.");
         } catch (Exception e) {
-            // Логування винятку у разі виникнення помилок під час міграції
-            logger.log(Level.SEVERE, "Помилка при наповненні таблиць бази даних", e);
+            // Log the exception in case of any errors during migration
+            logger.log(Level.SEVERE, "Error while populating database tables", e);
         }
     }
 }

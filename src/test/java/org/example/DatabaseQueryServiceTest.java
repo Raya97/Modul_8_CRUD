@@ -12,9 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-
 public class DatabaseQueryServiceTest {
-    // Моки для об'єктів Connection, PreparedStatement та ResultSet
+    // Mocks for Connection, PreparedStatement, and ResultSet
     @Mock
     private Connection connection;
     @Mock
@@ -22,46 +21,46 @@ public class DatabaseQueryServiceTest {
     @Mock
     private ResultSet resultSet;
 
-    // Змінна для закриття ресурсів після тестування
+    // Variable to close resources after testing
     private AutoCloseable closeable;
-    // Об'єкт класу, який ми тестуємо
+    // Instance of the class being tested
     private DatabaseQueryService queryService;
 
-    // Налаштування перед кожним тестом
+    // Setup method to run before each test
     @BeforeEach
     void setUp() throws SQLException {
-        // Ініціалізація моків з використанням Mockito
+        // Initialize mocks using Mockito
         closeable = MockitoAnnotations.openMocks(this);
-        // Налаштування мокованого PreparedStatement на повернення мокованого ResultSet при виклику executeQuery
+        // Configure the mock PreparedStatement to return the mock ResultSet when executeQuery is called
         when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
         when(preparedStatement.executeQuery()).thenReturn(resultSet);
-        // Ініціалізація об'єкта класу, який ми тестуємо, з мокованим з'єднанням
+        // Initialize the instance of the class being tested with the mock connection
         queryService = new DatabaseQueryService(connection);
     }
 
-    // Закриття ресурсів після кожного тесту
+    // Tear down method to run after each test
     @AfterEach
     void tearDown() throws Exception {
-        closeable.close(); // Закриття ресурсів, пов'язаних з моками
+        closeable.close(); // Close resources related to mocks
     }
 
-    // Тест для методу findMaxProjectsClient
+    // Test method for findMaxProjectsClient
     @Test
     void testFindMaxProjectsClient() throws SQLException {
-        // Налаштування мокованого ResultSet на повернення заданих значень
+        // Configure the mock ResultSet to return specified values
         when(resultSet.next()).thenReturn(true, false);
         when(resultSet.getString("name")).thenReturn("Test Client");
         when(resultSet.getInt("id")).thenReturn(10);
 
-        // Виклик методу, який ми тестуємо
+        // Call the method being tested
         var results = queryService.findMaxProjectsClient(1);
 
-        // Перевірка, що результат не є null
+        // Verify that the result is not null
         assertNotNull(results);
-        // Перевірка, що методи підготовки та виконання запиту були викликані
+        // Verify that the methods for preparing and executing the query were called
         verify(connection).prepareStatement(anyString());
         verify(preparedStatement).executeQuery();
-        // Перевірка, що методи отримання значень з ResultSet були викликані задану кількість разів
+        // Verify that the methods for retrieving values from the ResultSet were called the specified number of times
         verify(resultSet, times(1)).getString("name");
         verify(resultSet, times(1)).getInt("id");
     }

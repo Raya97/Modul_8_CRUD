@@ -7,29 +7,28 @@ import org.flywaydb.core.Flyway;
 public class DatabaseInitService {
 
     public static void main(String[] args) {
-        // Створення об'єкта конфігурації для HikariCP
+        // Create HikariCP configuration object
         HikariConfig config = new HikariConfig();
 
-        // Встановлення JDBC URL для підключення до бази даних H2
+        // Set the JDBC URL for connecting to the H2 database
         config.setJdbcUrl("jdbc:h2:~/Modul6");
 
-        // Встановлення імені користувача для доступу до бази даних
+        // Set the username for accessing the database
         config.setUsername("Raisa");
 
-        // Встановлення пароля для доступу до бази даних
+        // Set the password for accessing the database
         config.setPassword("");
 
-        // Створення джерела даних з використанням конфігурації HikariCP
+        // Create a data source using the HikariCP configuration
         try (HikariDataSource ds = new HikariDataSource(config)) {
-            // Конфігурація та ініціалізація Flyway для управління міграціями бази даних
+            // Configure and initialize Flyway for managing database migrations
             Flyway flyway = Flyway.configure().dataSource(ds).load();
 
-            // Запуск міграції бази даних
+            // Run the database migration
             flyway.migrate();
 
-            // Виведення повідомлення про успішну ініціалізацію бази даних
-            System.out.println("Базу даних ініціалізовано успішно.");
+            // Print a message indicating successful database initialization
+            System.out.println("Database initialized successfully.");
         }
     }
 }
-
