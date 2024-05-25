@@ -19,6 +19,7 @@ Java проект для управління клієнтами та проек
 # EN
 Java project for managing clients and projects, utilizing the H2 database and the Flyway migration framework. The project implements basic CRUD (Create, Read, Update, Delete) operations for the Client entity and provides database initialization and population through migrations.
 
+## Features
 - **Client Management:** Perform CRUD operations on the Client entity.
 - **Database Initialization:** Initialize the database schema using Flyway migrations.
 - **Database Population:** Populate the database with initial data.
